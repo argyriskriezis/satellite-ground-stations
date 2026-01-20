@@ -44,6 +44,7 @@ function createPopup(properties) {
     // Basic info
     var html = `<b>Location:</b> ${properties.city || properties.station}, ${properties.country}<br>`;
     html += `<b>Company:</b> ${properties.company}<br>`;
+    html += `<b>Status:</b> ${properties.status || 'Unknown'}<br>`;
 
     // Frequencies
     var freqs = [];
