@@ -1,43 +1,44 @@
 {
   "type": "FeatureCollection",
   "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "station": "Utqiagvik, AK",
-        "country": "USA",
-        "company": "Atlas",
-        "status": "Operational",
-        "S_band_Tx": true,
-        "S_band_Rx": true,
-        "X_band_Rx": true,
-        "Ka_band_Rx": false,
-        "UHF_Tx": false,
-        "UHF_Rx": false
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-156.81, 71.27]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "station": "Chitose",
-        "country": "Japan",
-        "company": "Atlas",
-        "status": "Operational",
-        "S_band_Tx": true,
-        "S_band_Rx": true,
-        "X_band_Rx": true,
-        "Ka_band_Rx": false,
-        "UHF_Tx": false,
-        "UHF_Rx": false
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [141.62, 42.77]
-      }
-    }
+    { "type": "Feature", "properties": { "station": "Utqiagvik, AK", "country": "USA", "company": "Atlas", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-156.81, 71.27] } },
+    { "type": "Feature", "properties": { "station": "Chitose", "country": "Japan", "company": "Atlas", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [141.62, 42.77] } },
+    { "type": "Feature", "properties": { "station": "Dundee", "country": "United Kingdom", "company": "Atlas", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-3.18, 56.4] } },
+    { "type": "Feature", "properties": { "station": "Muonio", "country": "Finland", "company": "Atlas", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [23.92, 67.89] } },
+    { "type": "Feature", "properties": { "station": "Dubai", "country": "UAE", "company": "Atlas", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [55.35, 24.94] } },
+    { "type": "Feature", "properties": { "station": "Harmon, Guam", "country": "USA", "company": "Atlas", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [144.82, 13.51] } },
+    { "type": "Feature", "properties": { "station": "Mojave, CA", "country": "USA", "company": "Atlas", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-118.15, 35.05] } },
+    { "type": "Feature", "properties": { "station": "Sunyani", "country": "Ghana", "company": "Atlas", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": false, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-2.34, 7.34] } },
+    { "type": "Feature", "properties": { "station": "Awarua", "country": "New Zealand", "company": "Atlas", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [168.38, -46.52] } },
+    { "type": "Feature", "properties": { "station": "Paumalu, HI", "country": "USA", "company": "Atlas", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-158.03, 21.67] } },
+    { "type": "Feature", "properties": { "station": "Mwulire", "country": "Rwanda", "company": "Atlas", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [30.39, -1.93] } },
+    { "type": "Feature", "properties": { "station": "Sodankylä", "country": "Finland", "company": "Atlas Partner", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [26.63, 67.36] } },
+    { "type": "Feature", "properties": { "station": "Öjebyn", "country": "Sweden", "company": "Atlas Partner", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [21.42, 65.33] } },
+    { "type": "Feature", "properties": { "station": "North Pole, AK", "country": "USA", "company": "Atlas Partner", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-147.53, 64.79] } },
+    { "type": "Feature", "properties": { "station": "Obihiro", "country": "Japan", "company": "Atlas Partner", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [143.45, 42.59] } },
+    { "type": "Feature", "properties": { "station": "Pendergrass, GA", "country": "USA", "company": "Atlas Partner", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-83.67, 34.17] } },
+    { "type": "Feature", "properties": { "station": "Accra", "country": "Ghana", "company": "Atlas Partner", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-0.3, 5.74] } },
+    { "type": "Feature", "properties": { "station": "Alice Springs", "country": "Australia", "company": "Atlas Partner", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [133.88, -23.75] } },
+    { "type": "Feature", "properties": { "station": "Pretoria", "country": "South Africa", "company": "Atlas Partner", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [27.7, -25.88] } },
+    { "type": "Feature", "properties": { "station": "Mingenew", "country": "Australia", "company": "Atlas Partner", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [115.34, -29.01] } },
+    { "type": "Feature", "properties": { "station": "Córdoba", "country": "Argentina", "company": "Atlas Partner", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-64.46, -31.52] } },
+    { "type": "Feature", "properties": { "station": "Ushuaia", "country": "Argentina", "company": "Atlas Partner", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-67.11, -54.51] } },
+    { "type": "Feature", "properties": { "station": "Clewiston, FL", "country": "USA", "company": "SSC", "status": "Operational", "S_band_Tx": true, "S_band_Rx": false, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-81.0333, 26.7333] } },
+    { "type": "Feature", "properties": { "station": "Esrange", "country": "Sweden", "company": "SSC", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": true }, "geometry": { "type": "Point", "coordinates": [21.0667, 67.8833] } },
+    { "type": "Feature", "properties": { "station": "Inuvik", "country": "Canada", "company": "SSC", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-133.5, 68.4] } },
+    { "type": "Feature", "properties": { "station": "North Pole, AK", "country": "USA", "company": "SSC", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-147.65, 64.8] } },
+    { "type": "Feature", "properties": { "station": "Punta Arenas", "country": "Chile", "company": "SSC", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-70.85, -52.9333] } },
+    { "type": "Feature", "properties": { "station": "Santiago", "country": "Chile", "company": "SSC", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": false, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-70.6667, -33.1333] } },
+    { "type": "Feature", "properties": { "station": "Siracha", "country": "Thailand", "company": "SSC", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [100.9167, 13.11] } },
+    { "type": "Feature", "properties": { "station": "South Point, HI", "country": "USA", "company": "SSC", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-155.6667, 19.0167] } },
+    { "type": "Feature", "properties": { "station": "Dongara", "country": "Australia", "company": "SSC", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [115.5833, -29.0833] } },
+    { "type": "Feature", "properties": { "station": "La Paz", "country": "Mexico", "company": "Leaf", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-110.38, 24.08] } },
+    { "type": "Feature", "properties": { "station": "Santiago", "country": "Chile", "company": "Leaf", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-70.77, -33.35] } },
+    { "type": "Feature", "properties": { "station": "Punta Arenas", "country": "Chile", "company": "Leaf", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-70.83, -53.03] } },
+    { "type": "Feature", "properties": { "station": "Blönduós", "country": "Iceland", "company": "Leaf", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [-20.66, 65.63] } },
+    { "type": "Feature", "properties": { "station": "Jeju", "country": "South Korea", "company": "Leaf", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [126.57, 33.38] } },
+    { "type": "Feature", "properties": { "station": "Arawa", "country": "Papua New Guinea", "company": "Leaf", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [155.57, -6.23] } },
+    { "type": "Feature", "properties": { "station": "Longyearbyen", "country": "Norway", "company": "KSAT", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": true, "UHF_Tx": false, "UHF_Rx": false }, "geometry": { "type": "Point", "coordinates": [15.3894, 78.2306] } },
+    { "type": "Feature", "properties": { "station": "Singapore", "country": "Singapore", "company": "KSAT", "status": "Operational", "S_band_Tx": true, "S_band_Rx": true, "X_band_Rx": true, "Ka_band_Rx": false, "UHF_Tx": true, "UHF_Rx": true }, "geometry": { "type": "Point", "coordinates": [103.8198, 1.3521] } }
   ]
 }
