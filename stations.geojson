@@ -7,7 +7,13 @@
         "station": "Utqiagvik, AK",
         "country": "USA",
         "company": "Atlas",
-        "status": "Operational"
+        "status": "Operational",
+        "S_band_Tx": true,
+        "S_band_Rx": true,
+        "X_band_Rx": true,
+        "Ka_band_Rx": false,
+        "UHF_Tx": false,
+        "UHF_Rx": false
       },
       "geometry": {
         "type": "Point",
@@ -20,7 +26,13 @@
         "station": "Chitose",
         "country": "Japan",
         "company": "Atlas",
-        "status": "Operational"
+        "status": "Operational",
+        "S_band_Tx": true,
+        "S_band_Rx": true,
+        "X_band_Rx": true,
+        "Ka_band_Rx": false,
+        "UHF_Tx": false,
+        "UHF_Rx": false
       },
       "geometry": {
         "type": "Point",
