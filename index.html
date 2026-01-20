@@ -14,11 +14,8 @@
 <div class="filter">
     <label for="company">Company:</label>
     <select id="company">
-        <option value="all">All</option>
-        <option value="Atlas">Atlas</option>
-        <option value="Atlas Partner">Atlas Partner</option>
-        <option value="SSC">SSC</option>
-    </select>
+        <option value="all">All Companies</option>
+        </select>
 </div>
 
 <div id="map"></div>
@@ -122,14 +119,43 @@ legend.onAdd = function (map) {
 
 legend.addTo(map);
 
+// Function to dynamically fill the dropdown menu
+function populateCompanyFilter(data) {
+    const select = document.getElementById("company");
+    
+    // Get unique company names using a Set
+    const companies = new Set();
+    data.features.forEach(f => {
+        if (f.properties.company) {
+            companies.add(f.properties.company);
+        }
+    });
+
+    // Convert Set to a sorted Array
+    const sortedCompanies = Array.from(companies).sort();
+
+    // Add each company as an option in the dropdown
+    sortedCompanies.forEach(company => {
+        const option = document.createElement("option");
+        option.value = company;
+        option.textContent = company;
+        select.appendChild(option);
+    });
+}
+
 // Fetch GeoJSON
 fetch('stations.geojson')
     .then(response => response.json())
     .then(data => {
         stationsData = data;
-        updateMarkers("all");
+        
+        // Step 1: Fill the dropdown list
+        populateCompanyFilter(data); 
+        
+        // Step 2: Show all markers initially
+        updateMarkers("all"); 
     })
-    .catch(error => console.error('Error loading GeoJSON:', error));
+    .catch(error => console.error('Error loading GeoJSON:', error));;
 
 document.getElementById("company").addEventListener("change", function() {
     updateMarkers(this.value);
