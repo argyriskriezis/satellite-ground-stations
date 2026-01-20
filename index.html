@@ -25,36 +25,39 @@
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
+
 // Initialize map
 var map = L.map('map').setView([20, 0], 2);
 
 // Add OpenStreetMap basemap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 18
+    maxZoom: 18,
+    attribution: '© OpenStreetMap contributors'
 }).addTo(map);
-
 
 // Layer to hold markers
 var stationLayer = L.layerGroup().addTo(map);
-
-var stationsData; // will hold the fetched GeoJSON
+var stationsData; 
 
 // Function to create popup content dynamically
 function createPopup(properties) {
-    // Basic info
-    var html = `<b>Location:</b> ${properties.city || properties.station}, ${properties.country}<br>`;
-    html += `<b>Company:</b> ${properties.company}<br>`;
-    html += `<b>Status:</b> ${properties.status || 'Unknown'}<br>`;
 
-    // Frequencies
+    var locationName = properties.station || properties.city || "Unknown Location";
+    
+    var html = `<b>Location:</b> ${locationName}, ${properties.country}<br>`;
+    html += `<b>Company:</b> ${properties.company}<br>`;
+    html += `<b>Status:</b> <span style="color: ${properties.status === 'Operational' ? 'green' : 'red'}">${properties.status || 'Unknown'}</span><br>`;
+
     var freqs = [];
-    if(properties.S_band_Tx || properties.S_band_Rx) freqs.push("S-band");
-    if(properties.X_band_Rx) freqs.push("X-band");
-    if(properties.Ka_band_Rx) freqs.push("Ka-band");
-    if(properties.UHF_Tx || properties.UHF_Rx) freqs.push("UHF");
+    if(properties.S_band_Tx === true || properties.S_band_Rx === true) freqs.push("S-band");
+    if(properties.X_band_Rx === true) freqs.push("X-band");
+    if(properties.Ka_band_Rx === true) freqs.push("Ka-band");
+    if(properties.UHF_Tx === true || properties.UHF_Rx === true) freqs.push("UHF");
 
     if(freqs.length > 0){
         html += `<b>Frequencies:</b> ${freqs.join(', ')}`;
+    } else {
+        html += `<b>Frequencies:</b> None listed`;
     }
 
     return html;
@@ -64,22 +67,21 @@ function createPopup(properties) {
 // Function to update markers
 function updateMarkers(companyFilter) {
     stationLayer.clearLayers();
+    
+    if (!stationsData) return;
+
     stationsData.features.forEach(function(f) {
         if (companyFilter === "all" || f.properties.company === companyFilter) {
-            // Create a slick circle marker
             var marker = L.circleMarker([f.geometry.coordinates[1], f.geometry.coordinates[0]], {
-                radius: 8,                  // size
-                fillColor: "#3388ff",       // color
-                color: "#000",              // border color
+                radius: 8,
+                fillColor: "#3388ff",
+                color: "#000",
                 weight: 1,
                 opacity: 1,
                 fillOpacity: 0.9
             });
 
-            // Bind dynamic popup
             marker.bindPopup(createPopup(f.properties));
-
-            // Add marker to layer
             marker.addTo(stationLayer);
         }
     });
@@ -87,14 +89,19 @@ function updateMarkers(companyFilter) {
 
 // Fetch stations from external file
 fetch('stations.geojson')
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) throw new Error("HTTP error " + response.status);
+        return response.json();
+    })
     .then(data => {
         stationsData = data;
-        updateMarkers("all"); // show all markers initially
+        updateMarkers("all");
     })
-    .catch(error => console.error('Error loading stations.geojson:', error));
+    .catch(error => {
+        console.error('Error loading GeoJSON:', error);
+        alert("Could not load stations.geojson. Ensure you are using a local web server.");
+    });
 
-// Event listener for filter
 document.getElementById("company").addEventListener("change", function() {
     updateMarkers(this.value);
 });
