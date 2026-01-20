@@ -26,6 +26,23 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
 
+// Color Mapping Configuration
+const companyColors = {
+    "Atlas": "#3388ff",         // Blue
+    "Atlas Partner": "#9c27b0", // Purple
+    "SSC": "#ff5722",           // Orange
+    "SSC Partner": "#ff9800",   // Light Orange
+    "Leaf": "#4caf50",          // Green
+    "KSAT": "#e91e63",          // Pink
+    "Partner": "#607d8b",       // Grey
+    "default": "#000000"        // Black
+};
+
+// Function to get color based on company name
+function getColor(company) {
+    return companyColors[company] || companyColors['default'];
+}
+
 // Initialize map
 var map = L.map('map').setView([20, 0], 2);
 
@@ -41,25 +58,18 @@ var stationsData;
 
 // Function to create popup content dynamically
 function createPopup(properties) {
-
     var locationName = properties.station || properties.city || "Unknown Location";
-    
     var html = `<b>Location:</b> ${locationName}, ${properties.country}<br>`;
     html += `<b>Company:</b> ${properties.company}<br>`;
-    html += `<b>Status:</b> <span style="color: ${properties.status === 'Operational' ? 'green' : 'red'}">${properties.status || 'Unknown'}</span><br>`;
+    html += `<b>Status:</b> ${properties.status || 'Unknown'}<br>`;
 
     var freqs = [];
-    if(properties.S_band_Tx === true || properties.S_band_Rx === true) freqs.push("S-band");
-    if(properties.X_band_Rx === true) freqs.push("X-band");
-    if(properties.Ka_band_Rx === true) freqs.push("Ka-band");
-    if(properties.UHF_Tx === true || properties.UHF_Rx === true) freqs.push("UHF");
+    if(properties.S_band_Tx || properties.S_band_Rx) freqs.push("S-band");
+    if(properties.X_band_Rx) freqs.push("X-band");
+    if(properties.Ka_band_Rx) freqs.push("Ka-band");
+    if(properties.UHF_Tx || properties.UHF_Rx) freqs.push("UHF");
 
-    if(freqs.length > 0){
-        html += `<b>Frequencies:</b> ${freqs.join(', ')}`;
-    } else {
-        html += `<b>Frequencies:</b> None listed`;
-    }
-
+    if(freqs.length > 0) html += `<b>Frequencies:</b> ${freqs.join(', ')}`;
     return html;
 }
 
@@ -67,16 +77,15 @@ function createPopup(properties) {
 // Function to update markers
 function updateMarkers(companyFilter) {
     stationLayer.clearLayers();
-    
     if (!stationsData) return;
 
     stationsData.features.forEach(function(f) {
         if (companyFilter === "all" || f.properties.company === companyFilter) {
             var marker = L.circleMarker([f.geometry.coordinates[1], f.geometry.coordinates[0]], {
                 radius: 8,
-                fillColor: "#3388ff",
-                color: "#000",
-                weight: 1,
+                fillColor: getColor(f.properties.company), // Dynamically set color
+                color: "#fff", // White border for better contrast
+                weight: 2,
                 opacity: 1,
                 fillOpacity: 0.9
             });
@@ -87,24 +96,45 @@ function updateMarkers(companyFilter) {
     });
 }
 
-// Fetch stations from external file
+// Add Legend to Map
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    div.style.background = 'white';
+    div.style.padding = '10px';
+    div.style.lineHeight = '18px';
+    div.style.borderRadius = '5px';
+    div.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
+    
+    div.innerHTML = '<b>Companies</b><br>';
+    
+    // Loop through our colors and generate a label with a colored square for each
+    for (var key in companyColors) {
+        if (key !== 'default') {
+            div.innerHTML +=
+            '<i style="background:' + companyColors[key] + '; width: 12px; height: 12px; display: inline-block; margin-right: 8px;"></i> ' +
+            key + '<br>';
+        }
+    }
+    return div;
+};
+
+legend.addTo(map);
+
+// Fetch GeoJSON
 fetch('stations.geojson')
-    .then(response => {
-        if (!response.ok) throw new Error("HTTP error " + response.status);
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
         stationsData = data;
         updateMarkers("all");
     })
-    .catch(error => {
-        console.error('Error loading GeoJSON:', error);
-        alert("Could not load stations.geojson. Ensure you are using a local web server.");
-    });
+    .catch(error => console.error('Error loading GeoJSON:', error));
 
 document.getElementById("company").addEventListener("change", function() {
     updateMarkers(this.value);
 });
+    
 </script>
 
 </body>
