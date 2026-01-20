@@ -33,25 +33,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18
 }).addTo(map);
 
-// Example GeoJSON
-var stations = {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {"station":"Utqiagvik, AK","country":"USA","company":"Atlas","status":"Operational"},
-      "geometry": {"type":"Point","coordinates":[-156.81,71.27]}
-    },
-    {
-      "type": "Feature",
-      "properties": {"station":"Chitose","country":"Japan","company":"Atlas","status":"Operational"},
-      "geometry": {"type":"Point","coordinates":[141.62,42.77]}
-    }
-  ]
-};
 
 // Layer to hold markers
 var stationLayer = L.layerGroup().addTo(map);
+
+var stationsData; // will hold the fetched GeoJSON
 
 // Function to update markers
 function updateMarkers(companyFilter) {
@@ -65,8 +51,14 @@ function updateMarkers(companyFilter) {
     });
 }
 
-// Initialize all markers
-updateMarkers("all");
+// Fetch stations from external file
+fetch('stations.geojson')
+    .then(response => response.json())
+    .then(data => {
+        stationsData = data;
+        updateMarkers("all"); // show all markers initially
+    })
+    .catch(error => console.error('Error loading stations.geojson:', error));
 
 // Event listener for filter
 document.getElementById("company").addEventListener("change", function() {
