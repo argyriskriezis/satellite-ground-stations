@@ -5,12 +5,30 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
+        /* Ensures map takes up most of the screen while leaving room for filters */
         #map { height: 85vh; width: 100%; }
+        
         .filter { 
             margin: 10px; 
             padding: 10px; 
             font-family: sans-serif;
             border-bottom: 1px solid #ccc;
+            background-color: #fcfcfc;
+        }
+
+        .company-filter-group {
+            display: flex; 
+            gap: 15px; 
+            flex-wrap: wrap; 
+            margin-top: 8px;
+        }
+
+        /* Makes labels easier to click */
+        label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
     </style>
 </head>
@@ -18,9 +36,9 @@
 
 <div class="filter">
     <strong>Filter by Company:</strong>
-    <div id="company-filter-group" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px;">
+    <div id="company-filter-group" class="company-filter-group">
         <label><input type="checkbox" id="select-all" checked> <b>(Select All)</b></label>
-    </div>
+        </div>
 </div>
 
 <div id="map"></div>
@@ -28,37 +46,34 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
 
-// Color Mapping Configuration
+// 1. Color Configuration
 const companyColors = {
-    "Atlas": "#3388ff",         // Blue
-    "Atlas Partner": "#9c27b0", // Purple
-    "SSC": "#ff5722",           // Orange
-    "SSC Partner": "#ff9800",   // Light Orange
-    "Leaf": "#4caf50",          // Green
-    "KSAT": "#e91e63",          // Pink
-    "KSAT Partner": "#607d8b",       // Grey
-    "default": "#000000"        // Black
+    "Atlas": "#3388ff",
+    "Atlas Partner": "#9c27b0",
+    "SSC": "#ff5722",
+    "SSC Partner": "#ff9800",
+    "Leaf": "#4caf50",
+    "KSAT": "#e91e63",
+    "KSAT Partner": "#607d8b",
+    "default": "#000000"
 };
 
-// Function to get color based on company name
 function getColor(company) {
     return companyColors[company] || companyColors['default'];
 }
 
-// Initialize map
+// 2. Initialize Map
 var map = L.map('map').setView([20, 0], 2);
 
-// Add OpenStreetMap basemap
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-// Layer to hold markers
 var stationLayer = L.layerGroup().addTo(map);
 var stationsData; 
 
-// Function to create popup content dynamically
+// 3. Popup Logic
 function createPopup(properties) {
     var locationName = properties.station || properties.city || "Unknown Location";
     var html = `<b>Location:</b> ${locationName}, ${properties.country}<br>`;
@@ -75,14 +90,12 @@ function createPopup(properties) {
     return html;
 }
 
-
-// Function to update markers
+// 4. Update Markers based on an ARRAY of selected names
 function updateMarkers(selectedCompanies) {
     stationLayer.clearLayers();
     if (!stationsData) return;
 
     stationsData.features.forEach(function(f) {
-        // Only add marker if the company is in the selected list
         if (selectedCompanies.includes(f.properties.company)) {
             var marker = L.circleMarker([f.geometry.coordinates[1], f.geometry.coordinates[0]], {
                 radius: 8,
@@ -98,39 +111,13 @@ function updateMarkers(selectedCompanies) {
     });
 }
 
-// Add Legend to Map
-var legend = L.control({position: 'bottomright'});
-
-legend.onAdd = function (map) {
-    var div = L.DomUtil.create('div', 'info legend');
-    div.style.background = 'white';
-    div.style.padding = '10px';
-    div.style.lineHeight = '18px';
-    div.style.borderRadius = '5px';
-    div.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
-    
-    div.innerHTML = '<b>Companies</b><br>';
-    
-    // Loop through our colors and generate a label with a colored square for each
-    for (var key in companyColors) {
-        if (key !== 'default') {
-            div.innerHTML +=
-            '<i style="background:' + companyColors[key] + '; width: 12px; height: 12px; display: inline-block; margin-right: 8px;"></i> ' +
-            key + '<br>';
-        }
-    }
-    return div;
-};
-
-legend.addTo(map);
-
-// Helper to get which boxes are currently checked
+// 5. Helper to see what is checked right now
 function getSelectedCompanies() {
     const checkboxes = document.querySelectorAll('.company-checkbox:checked');
     return Array.from(checkboxes).map(cb => cb.value);
 }
-    
-// Function to dynamically fill the dropdown menu
+
+// 6. Build the checkbox UI dynamically
 function populateCompanyFilter(data) {
     const container = document.getElementById("company-filter-group");
     const companies = new Set();
@@ -140,34 +127,51 @@ function populateCompanyFilter(data) {
         const label = document.createElement("label");
         label.innerHTML = `<input type="checkbox" class="company-checkbox" value="${company}" checked> ${company}`;
         
-        // Update map whenever a box is clicked
         label.querySelector('input').addEventListener('change', () => {
             updateMarkers(getSelectedCompanies());
         });
         container.appendChild(label);
     });
 
-    // Handle Select All
+    // Select All / Deselect All logic
     document.getElementById('select-all').addEventListener('change', function() {
         document.querySelectorAll('.company-checkbox').forEach(cb => cb.checked = this.checked);
         updateMarkers(getSelectedCompanies());
     });
 }
 
-// Fetch GeoJSON
+// 7. Legend
+var legend = L.control({position: 'bottomright'});
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    div.style.background = 'white';
+    div.style.padding = '10px';
+    div.style.lineHeight = '18px';
+    div.style.borderRadius = '5px';
+    div.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
+    div.innerHTML = '<b>Companies</b><br>';
+    for (var key in companyColors) {
+        if (key !== 'default') {
+            div.innerHTML += '<i style="background:' + companyColors[key] + '; width: 12px; height: 12px; display: inline-block; margin-right: 8px;"></i> ' + key + '<br>';
+        }
+    }
+    return div;
+};
+legend.addTo(map);
+
+// 8. Fetch Data and Start
 fetch('stations.geojson')
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) throw new Error("Could not load stations.geojson");
+        return response.json();
+    })
     .then(data => {
         stationsData = data;
         populateCompanyFilter(data); 
-        updateMarkers(getSelectedCompanies()); // Initial load
-    });
-    .catch(error => console.error('Error loading GeoJSON:', error));;
+        updateMarkers(getSelectedCompanies()); 
+    })
+    .catch(error => console.error('Error:', error));
 
-document.getElementById("company").addEventListener("change", function() {
-    updateMarkers(this.value);
-});
-    
 </script>
 
 </body>
