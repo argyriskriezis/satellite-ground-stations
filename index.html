@@ -39,14 +39,47 @@ var stationLayer = L.layerGroup().addTo(map);
 
 var stationsData; // will hold the fetched GeoJSON
 
+// Function to create popup content dynamically
+function createPopup(properties) {
+    // Basic info
+    var html = `<b>Location:</b> ${properties.city || properties.station}, ${properties.country}<br>`;
+    html += `<b>Company:</b> ${properties.company}<br>`;
+
+    // Frequencies
+    var freqs = [];
+    if(properties.S_band_Tx || properties.S_band_Rx) freqs.push("S-band");
+    if(properties.X_band_Rx) freqs.push("X-band");
+    if(properties.Ka_band_Rx) freqs.push("Ka-band");
+    if(properties.UHF_Tx || properties.UHF_Rx) freqs.push("UHF");
+
+    if(freqs.length > 0){
+        html += `<b>Frequencies:</b> ${freqs.join(', ')}`;
+    }
+
+    return html;
+}
+
+
 // Function to update markers
 function updateMarkers(companyFilter) {
     stationLayer.clearLayers();
-    stations.features.forEach(function(f) {
+    stationsData.features.forEach(function(f) {
         if (companyFilter === "all" || f.properties.company === companyFilter) {
-            L.marker([f.geometry.coordinates[1], f.geometry.coordinates[0]])
-             .bindPopup(f.properties.station + " (" + f.properties.company + ")")
-             .addTo(stationLayer);
+            // Create a slick circle marker
+            var marker = L.circleMarker([f.geometry.coordinates[1], f.geometry.coordinates[0]], {
+                radius: 8,                  // size
+                fillColor: "#3388ff",       // color
+                color: "#000",              // border color
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.9
+            });
+
+            // Bind dynamic popup
+            marker.bindPopup(createPopup(f.properties));
+
+            // Add marker to layer
+            marker.addTo(stationLayer);
         }
     });
 }
